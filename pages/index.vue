@@ -26,11 +26,11 @@ const fetchUsers = async () => {
   }  
 };
 
-const updateUsers = ()=> {
+const updateUsers = async ()=> {
   isLoading.value = true
   page.value = 1
   users.value = []
-  fetchUsers()
+  await fetchUsers()
 }
 
 onMounted(() => { fetchUsers() })

@@ -2,9 +2,8 @@
   <div id="registration" class="post-user">
     <h1 class="post-user--title" >Working with POST request</h1>
     <div class="post-user--form" >
-          <!-- :label="name" -->
         <UiInput
-          class="post-user_input"
+          class="post-user--form_input"
           v-model="name"
           placeholder="Your name"
           :error="!isValidName"
@@ -12,22 +11,24 @@
           label="Name"
         />
         <UiInput
-          class="post-user_input"
+          class="post-user--form_input"
           v-model="email"
           placeholder="Email"
           :error="!isValidEmail"
           :errorText="emailError"
+          label="Email"
         />
         <UiInput
-          class="post-user_input"
+          class="post-user--form_input"
           v-model="phone"
           placeholder="Phone"
           :error="!isValidPhone"
           :errorText="phoneError"
           helperText="+38 (XXX) XXX - XX - XX"
+          label="Phone"
         />
 
-        <div class="position-group">
+        <div class="post-user--form_position-group">
           <p>Select your position</p>
           <UiLoader v-if="isLoading" />
           <div v-for="position in positions" :key="position.id">
@@ -40,7 +41,7 @@
           </div>
         </div>
 
-        <div class="upload-file">
+        <div class="post-user--form_upload-file">
           <UiUpload
             v-model="file"
             label="Upload"
@@ -90,9 +91,7 @@ const phoneError = computed(() => validatePhone(phone.value).error())
 
 const fileUpdate = computed(() => {
   if(file.value) {
-    validateFile(file.value).then(( valid: any )=> {
-      console.log(valid);
-      
+    validateFile(file.value).then(( valid: any  )=> {
       isValidFile.value = valid.rules
       fileError.value = valid.error()
     })
@@ -120,7 +119,7 @@ const handleSubmit = async () => {
     formData.append("name", name.value);
     formData.append("email", email.value);
     formData.append("phone", phone.value);
-    formData.append("position_id", position_id.value );
+    formData.append("position_id", position_id.value.toString() );
     formData.append("photo", file.value  as File );
 
     await $api('/token')
@@ -172,7 +171,7 @@ const loadPositions = async () => {
 onMounted(() => loadPositions())
 </script>
 
-<style scoped>
+<style  lang="scss" scoped>
 .post-user {
   margin: 0 auto;
   display: flex;
@@ -180,39 +179,31 @@ onMounted(() => loadPositions())
   align-items: center;
   justify-content: center;
   margin-bottom: 100px;
-}
 
-.post-user--title {
-  text-align: center;
-  font-weight: 100;
-  margin-bottom: 50px;
-}
+  &--title {
+    text-align: center;
+    font-weight: 100;
+    margin-bottom: 50px;
+  }
 
-.post-user--form {
-  display: flex;
-  flex-direction: column;
-}
+  &--form {
+    display: flex;
+    flex-direction: column;
 
-.post-user_input {
-  margin-bottom: 50px;
-}
+    &_input {
+      margin-bottom: 50px;
+    }
 
+    &_position-group {
+      width: 100%;
+      margin-bottom: 50px;
+    }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.position-group {
-  width: 100%;
-  margin-bottom: 50px;
-}
-
-.upload-file {
-  margin-bottom: 50px;
-  width: 100%;
+    &_upload-file {
+      margin-bottom: 50px;
+      width: 100%;
+    }
+  }
 }
 
 </style>

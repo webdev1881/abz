@@ -1,6 +1,6 @@
 // utils/validation.js
 
-export function validateName(name) {
+export function validateName(name: string): {rules: boolean; error: () => string | undefined} {
   const minLength = name.trim().length > 2;
   const maxLength = name.trim().length < 60;
   const hasNumber = /\d/.test(name);
@@ -14,7 +14,7 @@ export function validateName(name) {
   };
 }
 
-export function validateEmail(email) {
+export function validateEmail(email: string): {rules: boolean; error: () => string | undefined} {
   const minLength = email.trim().length > 2;
   const maxLength = email.trim().length < 100;
   const re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -29,7 +29,7 @@ export function validateEmail(email) {
   }
 }
 
-export function validatePhone(phone) {
+export function validatePhone(phone: string): {rules: boolean; error: () => string | undefined} {
   const re = /^\+380\d{9}$/;
   const pattern = re.test(phone)
   return {
@@ -41,14 +41,12 @@ export function validatePhone(phone) {
   }
 }
 
-export async function validateFile(file) {
-
+export async function validateFile(file: File) {
   if (!file) return false;
   const minWidth = 70;
   const minHeight = 70;
   const validTypes = ['image/jpeg', 'image/jpg'].includes(file.type)
   const maxSize = file.size < 5 * 1024 * 1024 ; // 5 MB
-
   const validImgDimention = await new Promise((resolve) => {
     const img = new Image();
     img.onload = function () {
@@ -72,7 +70,5 @@ export async function validateFile(file) {
       if (!validImgDimention) { return "Image dimensions are too small" }
     },
   }
-
-
 }
 

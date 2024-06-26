@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: true,
   css: ['~/assets/scss/main.scss', '~/assets/scss/media.scss'],
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -12,8 +13,10 @@ export default defineNuxtConfig({
       }
     }
   },
+
   plugins: [
     '~/plugins/axios.ts',
     '~/plugins/toast.ts',
-  ]
+  ],
+
 })
