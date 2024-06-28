@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import type { IUser } from "@/types/user.type";
-// import type { IUser } from "@/types/user.type";
-// const { $api, $toast } = useNuxtApp();
+useSeoMeta({title: 'abz',})
 
 interface UserListProps {
   users: IUser[];
@@ -12,67 +11,7 @@ interface UserListProps {
 const props = defineProps<UserListProps>()
 
 const emit = defineEmits(["update"]);
-// const props = defineProps<UserListProps>({
-//   users: {
-//     type: Array,
-//     required: true,
-//   },
-//   isLoadMore: {
-//     type: Boolean,
-//     required: true,
-//   },
-//   isLoading: {
-//     type: Boolean,
-//     required: true,
-//   },
-  // params: {
-  //   required: true,
-  //   page: {
-  //     type: Number,
-  //     required: true,
-  //   },
-  //   count: {
-  //     type: Number,
-  //     required: true,
-  //   },
-  //   isLoadMore: {
-  //     type: Boolean,
-  //     required: true,
-  //   },
-  //   isLoading: {
-  //     type: Boolean,
-  //     required: true,
-  //   },
-  // },
-// })
 
-// const users = ref<IUser[]>([]);
-// let page = 1;
-// let count = 6;
-// let isLoadMore = ref(false)
-// let isLoading = ref(true)
-
-
-
-// const loadUsers = async () => {
-//   try {
-//     const { data } = await $api(`/users?page=${page}&count=${count}`)
-//     if(data.success) {
-//       isLoadMore.value = true
-//       users.value.push(...data.users)
-//       if (data.total_pages === page) {
-//         isLoadMore.value = false
-//       }
-//       page++;
-//       isLoading.value = false
-//     } 
-//   } catch (error) {
-//     $toast(error.message, "error")
-//   }  
-// };
-
-// const loadMore = () => loadUsers();
-// onMounted(() => loadUsers());
 </script>
 
 <template>

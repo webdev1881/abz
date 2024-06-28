@@ -5,9 +5,10 @@ import type { IUser } from "@/types/user.type";
 
 const users = ref<IUser[]>([]);
 const page = ref(1);
-let count = ref(4);
+let count = ref(6);
 let isLoadMore = ref(false)
 let isLoading = ref(true)
+const newUser = ref(false)
 
 const fetchUsers = async () => {
   try {
@@ -33,16 +34,20 @@ const updateUsers = async ()=> {
   await fetchUsers()
 }
 
+const addNewUser = () => {
+  newUser.value = true
+}
+
 onMounted(() => { fetchUsers() })
 </script>
 
 <template>
   <div>
-    <Header />
+    <Header @newUserFromHeader="addNewUser" />
     <main class="container">
-      <Banner />
+      <Banner @newUserFromBanner="addNewUser" />
       <UserList :users="users" :isLoadMore="isLoadMore" :isLoading="isLoading" @update="fetchUsers" />
-      <RegistrationForm @user-registered="updateUsers" />
+      <RegistrationForm :newUser="newUser" @user-registered="updateUsers" />
     </main>
   </div>
 </template>

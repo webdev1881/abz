@@ -4,21 +4,22 @@
     @mouseover="show = true"
     @mouseleave="show = false"
   >
-    <span class="tooltip-text">{{ text }}</span>
+    <!-- <span class="tooltip-text">{{ text }}</span> -->
+    <slot />
     <div v-if="show" class="tooltip-popup">{{ text }}</div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue"
 const props = defineProps({
   text: {
     type: String,
     required: true,
   },
-});
+})
 
-const show = ref(false);
+const show = ref(false)
 </script>
 
 <style scoped>
@@ -38,8 +39,8 @@ const show = ref(false);
 .tooltip-popup {
   position: absolute;
   bottom: -200%;
-  left: 90%;
-  transform: translateX(-50%);
+  left: 0;
+  /* transform: translateX(-50%); */
   background-color: black;
   color: white;
   padding: 5px 10px;

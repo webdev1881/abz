@@ -1,13 +1,16 @@
 <template>
   <div class="user-card">
-    <img :src="user.photo" alt="User Avatar" class="user-avatar" />
+    <NuxtImg :src="user.photo" format="webp" quality="40" alt="" class="user-avatar"/>
+    <!-- {{ user }} -->
     <div class="user-info">
-      <h2 class="user-name" v-tooltip="user.name">{{ truncatedName }}</h2>
+      <UiToolTip class="user-name" :text="user.name" >{{ truncatedName }}</UiToolTip>
+      <UiToolTip class="" :text="user.position" >{{ truncated(user.position) }}</UiToolTip>
+      <UiToolTip class="" :text="user.email" >{{ truncatedEmail }}</UiToolTip>
+      <UiToolTip class="" :text="user.phone" >{{ user.phone }}</UiToolTip>
+      <!-- <h2 class="user-name" v-tooltip="user.name">{{ truncatedName }}</h2>
       <p class="user-job-title">{{ user.jobTitle }}</p>
       <p class="user-email" v-tooltip="user.email">{{ truncatedEmail }}</p>
-      <p class="user-phone">{{ user.phone }}</p>
-      <!-- <p class="user-phone">{{ new Date(user.registration_timestamp).toJSON()  }}</p> -->
-
+      <p class="user-phone">{{ user.phone }}</p> -->
     </div>
   </div>
 </template>
@@ -21,7 +24,7 @@ const props = defineProps({
     required: true,
     default: () => ({
       name: "",
-      jobTitle: "",
+      position: "",
       email: "",
       phone: "",
       photo: "",
@@ -43,9 +46,16 @@ const truncatedEmail = computed(() => {
   return props.user.email;
 });
 
+const truncated = (text) => {
+  if (text > 25) {
+    return text.slice(0, 25) + "...";
+  }
+  return text;
+}
+
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .user-card {
   display: flex;
   flex-direction: column;
@@ -91,8 +101,8 @@ const truncatedEmail = computed(() => {
 .user-email,
 .user-phone {
   font-family: "Nunito", sans-serif;
-  font-size: 14px;
-  color: #666;
+  font-size: 16px;
+  /* color: #666; */
   margin: 0 0 20px;
 }
 </style>

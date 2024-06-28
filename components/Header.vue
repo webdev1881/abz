@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { scrollTo } from '@/utils/scrollTo'
+useSeoMeta({title: 'abz'})
+const emit = defineEmits(['newUserFromHeader']);
+const forNewUser = () => {
+  emit('newUserFromHeader')
+}
 </script>
 
 <template>
@@ -19,7 +24,7 @@ import { scrollTo } from '@/utils/scrollTo'
         <UiButton
           class="header-button"
           :disabled="false"
-          @click="scrollTo('registration')"
+          @click=" forNewUser(); scrollTo('registration')"
           >Sign up</UiButton
         >
       </div>
@@ -36,8 +41,7 @@ import { scrollTo } from '@/utils/scrollTo'
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-
-  padding: 13px 0;
+  padding: 15px 0;
   flex-direction: row;
   background-color: white;
 }

@@ -1,7 +1,8 @@
 <template>
   <div id="registration" class="post-user">
-    <h1 class="post-user--title" >Working with POST request</h1>
-    <div class="post-user--form" >
+    <h1 v-if="!isSuccess" class="post-user--title" >Working with POST request</h1>
+    <UiLoader v-if="isLoadResponce" />
+    <div v-if="!isSuccess" class="post-user--form" >
         <UiInput
           class="post-user--form_input"
           v-model="name"
@@ -30,7 +31,7 @@
 
         <div class="post-user--form_position-group">
           <p>Select your position</p>
-          <UiLoader v-if="isLoading" />
+          <UiLoader v-if="isLoadingPositions" />
           <div v-for="position in positions" :key="position.id">
             <UiRadioButton
               v-model="selectedPosition"
@@ -51,10 +52,15 @@
             @update="fileUpdate"
           />
         </div>
-
-        <UiButton :disabled="!isFormValid" @click.prevent="handleSubmit"> <span @click="scrollTo('users')">Sign up</span>  </UiButton>
+        <UiButton :disabled="!isFormValid" @click.prevent="handleSubmit"> <span >Sign up</span>  </UiButton>
 
     </div>
+
+    <div v-if="isSuccess" class="post-user--success">
+      <h1 class="post-user--success_title">User successfully registered</h1>
+      <img src="@/assets/img/success.jpg" format="webp" quality="40" alt="" class="post-user--success_img"/>
+    </div>
+
   </div>
 </template>
 
@@ -64,6 +70,10 @@ import type { IPosition } from "@/types/position.type";
 import { validateName, validateEmail, validatePhone, validateFile,} from "~/utils/validation"
 const { $api, $toast } = useNuxtApp()
 const emit = defineEmits(['user-registered']);
+useSeoMeta({title: 'abz',})
+
+interface RegistrationFormProps { newUser: boolean}
+const props = defineProps<RegistrationFormProps>()
 
 let name = ref("Taras Shevchenko") //watcher for dynamic first_letter to Uppercase
 const email = ref("kobzar@gmail.com")
@@ -75,10 +85,9 @@ const file = ref<File | null>(null)
 const selectedPosition = ref("")
 const position_id  = ref<number>(0)
 const positions = ref<IPosition[]>([])
-let isLoading = ref(true)
-
-
-
+let isLoadingPositions = ref(true)
+let isLoadResponce = ref(false)
+let isSuccess = ref(false)
 
 const isValidName = computed(() => validateName(name.value).rules)
 const nameError = computed(() => validateName(name.value).error())
@@ -100,9 +109,13 @@ const fileUpdate = computed(() => {
 const isValidFile = ref(false)
 const fileError = ref('')
 
+
 watch(name, (newName) => {
   if (newName) { name.value = newName.charAt(0).toUpperCase() + newName.slice(1) }
 })
+watch(() => props.newUser, () => {
+  isSuccess.value = false
+});
 
 const isFormValid = computed( () =>
     isValidName.value &&
@@ -121,6 +134,7 @@ const handleSubmit = async () => {
     formData.append("phone", phone.value);
     formData.append("position_id", position_id.value.toString() );
     formData.append("photo", file.value  as File );
+    isLoadResponce.value = true
 
     await $api('/token')
       .then(function(response) { 
@@ -135,11 +149,14 @@ const handleSubmit = async () => {
       }
     })
     .then(response => {
+      isSuccess.value = true
+      isLoadResponce.value = false
       $toast(response.data.message, "success")
       emit('user-registered')
     })
     .catch(error => {
       if (error.response) {
+        isLoadResponce.value = true
         const errors = error.response.data.fails
         const err = error.response.data.message
         for( const err in errors ) {
@@ -157,7 +174,7 @@ const loadPositions = async () => {
     const { data } = await $api(`/positions`)
     if(data.success) {
       positions.value.push(...data.positions)
-      isLoading.value = false
+      isLoadingPositions.value = false
       if (positions.value.length > 0) {
         selectedPosition.value = positions.value[0].name
         position_id.value = positions.value[0].id
@@ -171,16 +188,18 @@ const loadPositions = async () => {
 onMounted(() => loadPositions())
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 .post-user {
+  position: relative;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 100px;
+  padding-bottom: 50px;
 
   &--title {
+    width: 500px;
     text-align: center;
     font-weight: 100;
     margin-bottom: 50px;
@@ -189,6 +208,7 @@ onMounted(() => loadPositions())
   &--form {
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
 
     &_input {
       margin-bottom: 50px;
@@ -204,6 +224,20 @@ onMounted(() => loadPositions())
       width: 100%;
     }
   }
+
+  &--success {
+    display: flex;
+    flex-direction: column;
+
+    &_title {
+      width: 505px;
+      text-align: center;
+      font-weight: 100;
+      margin-bottom: 50px;
+    }
+  }
+
+
 }
 
 </style>

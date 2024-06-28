@@ -1,7 +1,6 @@
 <template>
   <div class="banner">
-    <img src="@/assets/img/banner.png" alt="" class="banner-img" />
-
+    <img src="@/assets/img/banner.webp" alt="" class="banner-img" />
     <div class="banner-content">
       <h1 class="banner-content--title">
         Test assignment for front-end developer
@@ -16,7 +15,7 @@
       <UiButton
         class="banner-button"
         :disabled="false"
-        @click="scrollTo('registration')"
+        @click=" forNewUser(); scrollTo('registration')"
         >Sign up</UiButton
       >
     </div>
@@ -25,23 +24,27 @@
 
 <script setup lang="ts">
 import { scrollTo } from '@/utils/scrollTo'
+const emit = defineEmits(['newUserFromBanner']);
+const forNewUser = () => {
+  emit('newUserFromBanner')
+}
+useSeoMeta({title: 'abz',})
+
 </script>
 
 <style lang="scss" scoped>
 .banner {
   position: relative;
   display: flex;
-  align-items: center;
-//   border: 1px solid;
-  height: 650px;
+  height: 500px;
 }
 .banner-content {
   width: 380px;
-  padding: 0 16px;
+  padding: 40px 16px 71px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin: 0 auto;
   z-index: 1;
   .banner-content--description,
@@ -49,7 +52,7 @@ import { scrollTo } from '@/utils/scrollTo'
     color: white;
     text-align: center;
     font-weight: 100;
-    margin-bottom: 32px;
+    // margin-bottom: 32px;
   }
 }
 .banner-img {
@@ -59,6 +62,6 @@ import { scrollTo } from '@/utils/scrollTo'
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 650px;
+  height: 100%;
 }
 </style>

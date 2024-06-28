@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: true,
@@ -19,4 +18,10 @@ export default defineNuxtConfig({
     '~/plugins/toast.ts',
   ],
 
+  modules: ["@nuxt/image"],
+  image: {
+    dir: 'assets/img',
+    domains: ['ttps://abz.agency']
+  }
 })
+// npx nuxthub deploy
