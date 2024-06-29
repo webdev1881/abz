@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: true,
-  css: ['~/assets/scss/main.scss', '~/assets/scss/media.scss'],
+  css: ['~/assets/scss/main.scss', '~/assets/scss/media.scss',],
 
   vite: {
     css: {
@@ -18,10 +18,16 @@ export default defineNuxtConfig({
     '~/plugins/toast.ts',
   ],
 
-  modules: ["@nuxt/image"],
+  modules: ["@nuxt/image", '@nuxtjs/google-fonts'],
   image: {
     dir: 'assets/img',
     domains: ['ttps://abz.agency']
+  },
+  googleFonts: {
+    families: {
+      Nunito: [400]
+    }
   }
+
 })
 // npx nuxthub deploy

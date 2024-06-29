@@ -1,3 +1,14 @@
+<script setup>
+import { ref } from "vue"
+const props = defineProps({
+  text: {
+    type: String,
+    required: true,
+  },
+})
+const show = ref(false)
+</script>
+
 <template>
   <div
     class="tooltip-container"
@@ -9,18 +20,6 @@
     <div v-if="show" class="tooltip-popup">{{ text }}</div>
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue"
-const props = defineProps({
-  text: {
-    type: String,
-    required: true,
-  },
-})
-
-const show = ref(false)
-</script>
 
 <style scoped>
 .tooltip-container {

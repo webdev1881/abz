@@ -1,95 +1,144 @@
 @media (min-width: 1170px) {
-  .container {
+  .container, .banner, .header {
     max-width: 1170px;
   }
   .banner {
-    max-width: 1170px;
+    height: 650px;
+    &-content {
+      margin: 164px 395px 163px 395px;
+    }
   }
   .post-user {
     width: 380px;
+    &--title {
+      width: 100vw;
+    }
   }
   .user-card {
     min-width: 330px;
   }
+  .user-list {
+    padding: 140px 0px;
+    &--items {
+      row-gap: 29px;
+    }
+  }
   .header {
-    max-width: 1170px;
+    padding: 13px 0;
+    &__right {
+      padding-right: 0px;
+    }
+    &__left {
+      padding-left: 0px;
+    }
   }
-  .header-right {
-    padding-right: 60px;
-  }
-  .header-left {
-    padding-left: 60px;
-  }
+
 }
 
 @media (min-width: 1024px) and (max-width: 1170px) {
-  .container {
+  .container, .banner, .header {
     max-width: 1024px;
   }
   .banner {
-    max-width: 1024px;
+    height: 650px;
+    &-content {
+      margin: 164px 322px 163px 322px;
+    }
   }
   .post-user {
     width: 380px;
+    &--title {
+      width: 100vw;
+    }
   }
   .user-card {
     min-width: 242px;
   }
+  .user-list {
+    padding: 140px 60px;
+    &--items {
+      row-gap: 29px;
+    }
+  }
   .header {
-    max-width: 1024px;
-  }
-  .header-right {
-    padding-right: 60px;
-  }
-  .header-left {
-    padding-left: 60px;
+    padding: 13px 0;
+    &__right {
+      padding-right: 60px;
+    }
+    &__left {
+      padding-left: 60px;
+    }
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .container {
+  .container, .banner, .header {
     max-width: 768px;
   }
   .banner {
-    max-width: 768px;
+    height: 500px;
+    &-content {
+      margin: 89px 194px 88px 194px;
+    }
   }
   .post-user {
     width: 380px;
+    &--title {
+      width: 100vw;
+    }
   }
   .user-card {
-    min-width: 304px;
+    width: 304px;
+  }
+  .user-list {
+    padding: 140px 32px;
+    &--items {
+      row-gap: 16px;
+    }
   }
   .header {
-    max-width: 768px;
-  }
-  .header-right {
-    padding-right: 32px;
-  }
-  .header-left {
-    padding-left: 32px;
+    padding: 15px 0;
+    &__right {
+      padding-right: 32px;
+    }
+    &__left {
+      padding-left: 32px;
+    }
   }
 }
 
 @media (max-width: 767px) {
-  .container {
+  .container, .banner, .header {
     max-width: 360px;
   }
   .banner {
-    max-width: 360px;
+    height: 500px;
+    &-content {
+      margin: 40px 16px 71px 16px;
+    }
   }
   .post-user {
     width: 328px;
+    &--title {
+      width: 300px;
+    }
+  }
+  .user-list {
+    padding: 140px 16px;
+    &--items {
+      row-gap: 20px;
+    }
   }
   .user-card {
-    min-width: 288px;
+    width: 288px;
   }
   .header {
-    max-width: 360px;
-  }
-  .header-right {
-    padding-right: 16px;
-  }
-  .header-left {
-    padding-left: 16px;
+    padding: 13px 0;
+    &__right {
+      padding-right: 16px;
+    }
+    &__left {
+      padding-left: 16px;
+    }
   }
 }

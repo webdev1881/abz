@@ -1,72 +1,6 @@
-<template>
-  <div id="registration" class="post-user">
-    <h1 v-if="!isSuccess" class="post-user--title" >Working with POST request</h1>
-    <UiLoader v-if="isLoadResponce" />
-    <div v-if="!isSuccess" class="post-user--form" >
-        <UiInput
-          class="post-user--form_input"
-          v-model="name"
-          placeholder="Your name"
-          :error="!isValidName"
-          :errorText="nameError"
-          label="Name"
-        />
-        <UiInput
-          class="post-user--form_input"
-          v-model="email"
-          placeholder="Email"
-          :error="!isValidEmail"
-          :errorText="emailError"
-          label="Email"
-        />
-        <UiInput
-          class="post-user--form_input"
-          v-model="phone"
-          placeholder="Phone"
-          :error="!isValidPhone"
-          :errorText="phoneError"
-          helperText="+38 (XXX) XXX - XX - XX"
-          label="Phone"
-        />
-
-        <div class="post-user--form_position-group">
-          <p>Select your position</p>
-          <UiLoader v-if="isLoadingPositions" />
-          <div v-for="position in positions" :key="position.id">
-            <UiRadioButton
-              v-model="selectedPosition"
-              :value="position.name"
-              :label="position.name"
-              @click="position_id = position.id"
-            />
-          </div>
-        </div>
-
-        <div class="post-user--form_upload-file">
-          <UiUpload
-            v-model="file"
-            label="Upload"
-            placeholder="Upload your photo"
-            :error="!isValidFile"
-            :errorText="fileError"
-            @update="fileUpdate"
-          />
-        </div>
-        <UiButton :disabled="!isFormValid" @click.prevent="handleSubmit"> <span >Sign up</span>  </UiButton>
-
-    </div>
-
-    <div v-if="isSuccess" class="post-user--success">
-      <h1 class="post-user--success_title">User successfully registered</h1>
-      <img src="@/assets/img/success.jpg" format="webp" quality="40" alt="" class="post-user--success_img"/>
-    </div>
-
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed } from "vue"
-import type { IPosition } from "@/types/position.type";
+import type { IPosition } from "@/types/position.type"
 import { validateName, validateEmail, validatePhone, validateFile,} from "~/utils/validation"
 const { $api, $toast } = useNuxtApp()
 const emit = defineEmits(['user-registered']);
@@ -188,6 +122,77 @@ const loadPositions = async () => {
 onMounted(() => loadPositions())
 </script>
 
+<template>
+  <div id="registration" class="post-user">
+    <h1 v-if="!isSuccess" class="post-user--title" >Working with POST request</h1>
+    <UiLoader v-if="isLoadResponce" />
+    <div v-if="!isSuccess" class="post-user--form" >
+        <UiInput
+          class="post-user--form_input"
+          v-model="name"
+          placeholder="Your name"
+          :error="!isValidName"
+          :errorText="nameError"
+          label="Name"
+        />
+        <UiInput
+          class="post-user--form_input"
+          v-model="email"
+          placeholder="Email"
+          :error="!isValidEmail"
+          :errorText="emailError"
+          label="Email"
+        />
+        <UiInput
+          class="post-user--form_input"
+          v-model="phone"
+          placeholder="Phone"
+          :error="!isValidPhone"
+          :errorText="phoneError"
+          helperText="+38 (XXX) XXX - XX - XX"
+          label="Phone"
+        />
+
+        <div class="post-user--form_positions">
+          <p class="form_positions_title" >Select your position</p>
+          <UiLoader v-if="isLoadingPositions" />
+          <div v-for="position in positions" :key="position.id">
+            <UiRadioButton
+              v-model="selectedPosition"
+              :value="position.name"
+              :label="position.name"
+              @click="position_id = position.id"
+            />
+          </div>
+        </div>
+
+        <div class="post-user--form_upload-file">
+          <UiUpload
+            v-model="file"
+            label="Upload"
+            placeholder="Upload your photo"
+            :error="!isValidFile"
+            :errorText="fileError"
+            @update="fileUpdate"
+          />
+        </div>
+
+        <UiButton
+          class="post-user--form_submit"
+          :disabled="!isFormValid" 
+          @click.prevent="handleSubmit"
+        >Sign up</UiButton>
+
+    </div>
+
+    <div v-if="isSuccess" class="post-user--success">
+      <h1 class="post-user--success_title">User successfully registered</h1>
+      <img src="@/assets/img/success.jpg" format="webp" quality="40" alt="" class="post-user--success_img"/>
+    </div>
+
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .post-user {
   position: relative;
@@ -199,9 +204,10 @@ onMounted(() => loadPositions())
   padding-bottom: 50px;
 
   &--title {
-    width: 500px;
     text-align: center;
     font-weight: 100;
+    margin-bottom: 50px;
+    margin: 0;
     margin-bottom: 50px;
   }
 
@@ -212,16 +218,24 @@ onMounted(() => loadPositions())
 
     &_input {
       margin-bottom: 50px;
-    }
+    }    
 
-    &_position-group {
+    &_positions {
       width: 100%;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
+      .form_positions_title {
+        margin-top: -7px;
+        margin-bottom: 10px;
+      }
     }
 
     &_upload-file {
       margin-bottom: 50px;
       width: 100%;
+    }
+
+    &_submit {
+      margin: 0 auto;
     }
   }
 
@@ -236,8 +250,6 @@ onMounted(() => loadPositions())
       margin-bottom: 50px;
     }
   }
-
-
 }
 
 </style>

@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { scrollTo } from '@/utils/scrollTo'
+const emit = defineEmits(['newUserFromBanner']);
+const forNewUser = () => {
+  emit('newUserFromBanner')
+}
+useSeoMeta({title: 'abz',})
+</script>
+
 <template>
   <div class="banner">
     <img src="@/assets/img/banner.webp" alt="" class="banner-img" />
@@ -16,52 +25,47 @@
         class="banner-button"
         :disabled="false"
         @click=" forNewUser(); scrollTo('registration')"
-        >Sign up</UiButton
+      >Sign up</UiButton
       >
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { scrollTo } from '@/utils/scrollTo'
-const emit = defineEmits(['newUserFromBanner']);
-const forNewUser = () => {
-  emit('newUserFromBanner')
-}
-useSeoMeta({title: 'abz',})
-
-</script>
-
 <style lang="scss" scoped>
 .banner {
   position: relative;
   display: flex;
-  height: 500px;
-}
-.banner-content {
-  width: 380px;
-  padding: 40px 16px 71px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  z-index: 1;
-  .banner-content--description,
-  .banner-content--title {
-    color: white;
-    text-align: center;
-    font-weight: 100;
-    // margin-bottom: 32px;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+
+    &--description,
+    &--title {
+      color: white;
+      text-align: center;
+      font-weight: 100;
+      margin: 0;
+    }
+    
+    &--description {
+      margin-top: -10px;
+    }
+  }
+
+  &-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
   }
 }
-.banner-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-}
+
+
 </style>

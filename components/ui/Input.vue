@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-
 interface InputProps {
   modelValue: string;
   label?: string;
@@ -61,7 +60,7 @@ label {
 
 input {
   color: black;
-  padding: 1em;
+  padding: 17px 16px;
   border: 1px solid #ccc;
   background-color: $background;
   border-radius: 4px;

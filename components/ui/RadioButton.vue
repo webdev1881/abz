@@ -33,17 +33,18 @@ const onChange = (event: Event) => {
 .radio-button {
   display: flex;
   align-items: center;
-  margin: 0.5em 0;
+  margin: 7px 0;
 }
 
 .radio-input {
   appearance: none;
-  width: 1.5em;
-  height: 1.5em;
+  width: 20px;
+  height: 20px;
   border: 1px solid $secondary;
   border-radius: 50%;
   position: relative;
-  margin-right: 0.5em;
+  margin: 0;
+  margin-right: 12px;
   cursor: pointer;
   transition: border-color 0.3s ease;
 }
@@ -51,8 +52,8 @@ const onChange = (event: Event) => {
 .radio-input:checked::before {
   content: '';
   display: block;
-  width: 0.8em;
-  height: 0.8em;
+  width: 10px;
+  height: 10px;
   background-color: $secondary;
   border-radius: 50%;
   position: absolute;

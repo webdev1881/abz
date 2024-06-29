@@ -1,20 +1,3 @@
-<template>
-  <div class="user-card">
-    <NuxtImg :src="user.photo" format="webp" quality="40" alt="" class="user-avatar"/>
-    <!-- {{ user }} -->
-    <div class="user-info">
-      <UiToolTip class="user-name" :text="user.name" >{{ truncatedName }}</UiToolTip>
-      <UiToolTip class="" :text="user.position" >{{ truncated(user.position) }}</UiToolTip>
-      <UiToolTip class="" :text="user.email" >{{ truncatedEmail }}</UiToolTip>
-      <UiToolTip class="" :text="user.phone" >{{ user.phone }}</UiToolTip>
-      <!-- <h2 class="user-name" v-tooltip="user.name">{{ truncatedName }}</h2>
-      <p class="user-job-title">{{ user.jobTitle }}</p>
-      <p class="user-email" v-tooltip="user.email">{{ truncatedEmail }}</p>
-      <p class="user-phone">{{ user.phone }}</p> -->
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { computed } from "vue";
 
@@ -32,28 +15,26 @@ const props = defineProps({
   },
 });
 
-const truncatedName = computed(() => {
-  if (props.user.name.length > 30) {
-    return props.user.name.slice(0, 30) + "...";
-  }
-  return props.user.name;
-});
-
-const truncatedEmail = computed(() => {
-  if (props.user.email?.length > 25) {
-    return props.user.email.slice(0, 25) + "...";
-  }
-  return props.user.email;
-});
-
 const truncated = (text) => {
-  if (text > 25) {
+  if (text?.length > 25) {
     return text.slice(0, 25) + "...";
   }
   return text;
 }
 
 </script>
+
+<template>
+  <div class="user-card">
+    <NuxtImg :src="user.photo" format="webp" quality="40" alt="" class="user-card--avatar"/><!-- Image of the user -->
+    <div class="user-card--info">
+      <UiToolTip class="user-card--info_name" :text="user.name" >{{ truncated(user.name) }}</UiToolTip><!-- Name of the user -->
+      <UiToolTip :text="user.position" >{{ truncated(user.position) }}</UiToolTip><!-- Position of the user -->
+      <UiToolTip :text="user.email" >{{ truncated(user.email) }}</UiToolTip><!-- Email of the user -->
+      <UiToolTip :text="user.phone" >{{ truncated(user.phone) }}</UiToolTip><!-- Phone number of the user -->
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .user-card {
@@ -70,39 +51,20 @@ const truncated = (text) => {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.user-avatar {
-  width: 80px;
-  height: 80px;
+.user-card--avatar {
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  margin-bottom: 20px;
 }
 
-.user-info {
+.user-card--info {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.user-name {
-  font-family: "Nunito", sans-serif;
-  font-size: 16px;
-  font-weight: 100;
-  margin: 0 0 20px;
-}
-
-.user-job-title {
-  font-family: "Nunito", sans-serif;
-  font-size: 16px;
-  color: #666;
-  margin: 0 0 20px;
-}
-
-.user-email,
-.user-phone {
-  font-family: "Nunito", sans-serif;
-  font-size: 16px;
-  /* color: #666; */
-  margin: 0 0 20px;
+.user-card--info_name {
+  margin: 20px 0;
 }
 </style>

@@ -1,11 +1,3 @@
-<template>
-  <transition name="fade">
-    <div v-if="visible" :class="['toast', status]">
-      <span>{{ message }}</span>
-    </div>
-  </transition>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
@@ -28,6 +20,14 @@ onMounted(() => {
   }, 3000);
 });
 </script>
+
+<template>
+  <transition name="fade">
+    <div v-if="visible" :class="['toast', status]">
+      <span>{{ message }}</span>
+    </div>
+  </transition>
+</template>
 
 <style scoped>
 .toast {

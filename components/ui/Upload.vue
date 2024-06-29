@@ -53,12 +53,13 @@ const onButtonClick = () => {
 <style lang="scss" scoped>
 .upload-container {
   display: flex;
-  margin: 0.5em 0;
+  margin: 0;
   position: relative;
 }
 
 .upload-button {
-  padding: 0.5em 1em;
+  padding:0 16px;
+  font-size: 16px;
   border: 1px solid #000;
   border-radius: 4px 0 0 4px;
   background-color: transparent;
@@ -75,7 +76,7 @@ const onButtonClick = () => {
 }
 
 .upload-placeholder {
-  padding: 0.5em;
+  padding: 13px;
   border: 1px solid #ccc;
   border-radius: 0 4px 4px 0;
   border-left: none;

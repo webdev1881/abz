@@ -1,5 +1,3 @@
-// utils/validation.js
-
 export function validateName(name: string): {rules: boolean; error: () => string | undefined} {
   const minLength = name.trim().length > 2;
   const maxLength = name.trim().length < 60;
