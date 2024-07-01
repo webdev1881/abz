@@ -59,6 +59,13 @@ const isFormValid = computed( () =>
     isValidFile.value
 );
 
+const clearForm = () => {
+  name.value = ''
+  email.value = ''
+  phone.value = ''
+  file.value = null
+}
+
 const handleSubmit = async () => {
   if (isFormValid.value) {
     let token = ''
@@ -69,13 +76,16 @@ const handleSubmit = async () => {
     formData.append("position_id", position_id.value.toString() );
     formData.append("photo", file.value  as File );
     isLoadResponce.value = true
+    isSuccess.value = true
 
+    // get token from server
     await $api('/token')
       .then(function(response) { 
         token = response.data.token
       })
       .catch(function(error) {  })
-
+      
+    // send data to server
     await $api.post("/users", formData, {
       headers: {
         'Token': token,
@@ -83,14 +93,16 @@ const handleSubmit = async () => {
       }
     })
     .then(response => {
-      isSuccess.value = true
+      // isSuccess.value = true
       isLoadResponce.value = false
       $toast(response.data.message, "success")
       emit('user-registered')
+      clearForm()
     })
     .catch(error => {
       if (error.response) {
-        isLoadResponce.value = true
+        isLoadResponce.value = false
+        isSuccess.value = false
         const errors = error.response.data.fails
         const err = error.response.data.message
         for( const err in errors ) {
@@ -116,7 +128,7 @@ const loadPositions = async () => {
     } 
   } catch (error) {
     $toast((error as Error).message, "error")
- }  
+ }
 };
 
 onMounted(() => loadPositions())
@@ -185,7 +197,7 @@ onMounted(() => loadPositions())
 
     </div>
 
-    <div v-if="isSuccess" class="post-user--success">
+    <div v-if="!isLoadResponce && isSuccess" class="post-user--success">
       <h1 class="post-user--success_title">User successfully registered</h1>
       <img src="@/assets/img/success.jpg" format="webp" quality="40" alt="" class="post-user--success_img"/>
     </div>
