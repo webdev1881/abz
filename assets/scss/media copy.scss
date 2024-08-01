@@ -1,0 +1,60 @@
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+  .user-list {
+    padding: 0 60px;
+  }
+  .user-card {
+    min-width: 282px;
+  }
+  .header {
+    max-width: 1024px;
+  }
+  .header-right {
+    padding-right: 60px;
+  }
+  .header-left {
+    padding-left: 60px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    max-width: 768px;
+  }
+  .user-list {
+    padding: 0 32px;
+  }
+  .user-card {
+    min-width: 280px;
+  }
+  .header {
+    max-width: 768px;
+  }
+  .header-right {
+    padding-right: 32px;
+  }
+  .header-left {
+    padding-left: 32px;
+  }
+}
+@media (max-width: 767px) {
+  .container {
+    max-width: 360px;
+  }
+  .user-list {
+    padding: 0 16px;
+  }
+  .user-card {
+    min-width: 280px;
+  }
+  .header {
+    max-width: 360px;
+  }
+  .header-right {
+    padding-right: 16px;
+  }
+  .header-left {
+    padding-left: 16px;
+  }
+}
